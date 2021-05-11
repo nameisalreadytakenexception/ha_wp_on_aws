@@ -19,7 +19,7 @@ module "vpc" {
   cidr_block_subnet_private = ["10.0.3.0/24", "10.0.4.0/24"]
   cidr_block_db_subnet      = ["10.0.5.0/24", "10.0.6.0/24"]
 }
-# module "db" {
-#   source = "./modules/db"
-#   subnet_ids = module.vpc.db_subnet_id
-# }
+module "db" {
+  source     = "./modules/db"
+  subnet_ids = module.vpc.db_subnet_id
+}
