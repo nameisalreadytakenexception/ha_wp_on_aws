@@ -20,6 +20,9 @@ module "vpc" {
   cidr_block_db_subnet      = ["10.0.5.0/24", "10.0.6.0/24"]
 }
 module "db" {
-  source     = "./modules/db"
-  subnet_ids = module.vpc.db_subnet_id
+  source         = "./modules/db"
+  subnet_ids     = module.vpc.db_subnet_id
+  multi_az       = true          # in case of multi-az
+  instance_class = "db.t3.micro" # in case of multi-az
+  # azs            = module.vpc.azs
 }

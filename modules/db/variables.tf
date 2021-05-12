@@ -14,7 +14,7 @@ variable "engine_version" {
   type        = string
 }
 variable "instance_class" {
-  default     = "db.t2.micro"
+  default = "db.t2.micro"
   description = "db instance class"
   type        = string
 }
@@ -40,12 +40,22 @@ variable "port" {
 }
 variable "subnet_ids" {
   description = "subnet ids"
-  type        = list
+  type        = list(any)
 }
 variable "storage_type" {
   default     = "gp2"
   description = "storage type"
   type        = string
+}
+variable "backup_retention_period" {
+  default     = 3
+  description = "backup retention period (days)"
+  type        = number
+}
+variable "multi_az" {
+  default     = false
+  description = " enabling multi_az"
+  type        = bool
 }
 # variable "azs" {
 #   description = "availability zones"
