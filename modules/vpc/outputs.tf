@@ -1,6 +1,6 @@
 output "vpc_id" {
   description = "vpc_id value"
-  value       = aws_vpc.ha-wp.id
+  value       = aws_vpc.ha-wp-vpc.id
 }
 output "eip_id" {
   description = "eip_id values"

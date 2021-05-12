@@ -1,5 +1,5 @@
 #VPC
-resource "aws_vpc" "ha-wp" {
+resource "aws_vpc" "ha-wp-vpc" {
   cidr_block           = var.cidr_block_vpc
   enable_dns_support   = true
   enable_dns_hostnames = true
