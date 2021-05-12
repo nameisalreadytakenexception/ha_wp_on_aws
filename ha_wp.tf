@@ -25,3 +25,7 @@ module "db" {
   multi_az       = true          # in case of multi-az
   instance_class = "db.t3.micro" # in case of multi-az
 }
+module "efs" {
+  source        = "./modules/efs"
+  encrypted_efs = true
+}
