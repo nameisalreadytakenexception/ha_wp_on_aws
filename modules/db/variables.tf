@@ -14,26 +14,26 @@ variable "engine_version" {
   type        = string
 }
 variable "instance_class" {
-  default = "db.t2.micro"
+  default     = "db.t2.micro"
   description = "db instance class"
   type        = string
 }
-variable "name" {
+variable "db_name" {
   default     = "wp_db"
   description = "db name"
   type        = string
 }
-variable "username" {
+variable "db_username" {
   default     = "wp_user"
   description = "db username"
   type        = string
 }
-variable "password" {
+variable "db_password" {
   default     = "wp_password"
   description = "db password"
   type        = string
 }
-variable "port" {
+variable "db_port" {
   default     = 3307
   description = "db port"
   type        = number
@@ -54,11 +54,6 @@ variable "backup_retention_period" {
 }
 variable "multi_az" {
   default     = false
-  description = " enabling multi_az"
+  description = "enabling multi_az"
   type        = bool
 }
-# variable "azs" {
-#   description = "availability zones"
-#   default     = ["eu-central-1a", "eu-central-1b"]
-#   type        = list
-# }

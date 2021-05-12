@@ -24,5 +24,4 @@ module "db" {
   subnet_ids     = module.vpc.db_subnet_id
   multi_az       = true          # in case of multi-az
   instance_class = "db.t3.micro" # in case of multi-az
-  # azs            = module.vpc.azs
 }
