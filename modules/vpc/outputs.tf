@@ -12,7 +12,7 @@ output "subnet_public_id" {
 }
 output "db_subnet_id" {
   description = "db_subnet_id values"
-  value       = "${aws_subnet.db-subnet.*.id}"
+  value       = aws_subnet.db-subnet.*.id
 }
 # output "subnet_private_id" {
 #   description = "subnet_private_id value"
