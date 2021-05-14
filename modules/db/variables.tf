@@ -34,7 +34,7 @@ variable "db_password" {
   type        = string
 }
 variable "db_port" {
-  default     = 3307
+  default     = 3306
   description = "db port"
   type        = number
 }
