@@ -29,3 +29,11 @@ module "efs" {
   source        = "./modules/efs"
   encrypted_efs = true
 }
+module "sg" {
+  source                    = "./modules/sg"
+  vpc_id                    = module.vpc.vpc_id
+  db_port                   = module.db.db_port
+  cidr_block_db_subnet      = module.vpc.cidr_block_db_subnet
+  cidr_block_subnet_private = module.vpc.cidr_block_subnet_private
+  cidr_block_subnet_public  = module.vpc.cidr_block_subnet_public
+}

@@ -10,17 +10,17 @@ variable "tags" {
 variable "cidr_block_subnet_public" {
   default     = ["10.0.1.0/24", "10.0.2.0/24"]
   description = "cidr block for public subnets"
-  type        = list(any)
+  type        = list(string)
 }
 variable "cidr_block_subnet_private" {
   default     = ["10.0.3.0/24", "10.0.4.0/24"]
   description = "cidr block for private subnets"
-  type        = list(any)
+  type        = list(string)
 }
 variable "cidr_block_db_subnet" {
   default     = ["10.0.5.0/24", "10.0.6.0/24"]
   description = "cidr block for db subnets"
-  type        = list(any)
+  type        = list(string)
 }
 variable "vpc_id" {
   type        = string
@@ -29,5 +29,5 @@ variable "vpc_id" {
 variable "azs" {
   description = "availability zones"
   default     = ["eu-central-1a", "eu-central-1b"]
-  type        = list(any)
+  type        = list(string)
 }

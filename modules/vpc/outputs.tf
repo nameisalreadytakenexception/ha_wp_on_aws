@@ -14,6 +14,18 @@ output "db_subnet_id" {
   description = "db_subnet_id values"
   value       = aws_subnet.db-subnet.*.id
 }
+output "cidr_block_db_subnet" {
+  description = "cidr_block_db_subnet values"
+  value       = var.cidr_block_db_subnet
+}
+output "cidr_block_subnet_private" {
+  description = "cidr_block_subnet_private values"
+  value       = var.cidr_block_subnet_private
+}
+output "cidr_block_subnet_public" {
+  description = "cidr_block_subnet_public values"
+  value       = var.cidr_block_subnet_public
+}
 # output "subnet_private_id" {
 #   description = "subnet_private_id value"
 #   value       = aws_subnet.ha-wp-subnet-private.id
