@@ -19,15 +19,13 @@ variable "cidr_block_db_subnet" {
   description = "cidr block for db subnets"
   type        = list(string)
 }
-
-
-# variable "server_port" {
-#   description = "the port the web server will be listening"
-#   type        = number
-#   default     = 8080
-# }
-# variable "lb_port" {
-#   description = "the port the elb will be listening"
-#   type        = number
-#   default     = 80
-# }
+variable "exec_node_port" {
+  description = "var for exec_node_port"
+  type        = number
+  default     = 8080
+}
+variable "lb_port" {
+  description = "var for lb_port"
+  type        = number
+  default     = 80
+}
