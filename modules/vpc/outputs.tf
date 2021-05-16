@@ -10,6 +10,10 @@ output "subnet_public_id" {
   description = "subnet_public_id values"
   value       = ["${aws_subnet.ha-wp-subnet-public.*.id}"]
 }
+output "subnet_private_id" {
+  description = "subnet_privatr_id values"
+  value       = aws_subnet.ha-wp-subnet-private.*.id
+}
 output "db_subnet_id" {
   description = "db_subnet_id values"
   value       = aws_subnet.db-subnet.*.id
