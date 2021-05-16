@@ -17,5 +17,6 @@ resource "aws_db_instance" "default" {
   storage_type            = var.storage_type
   backup_retention_period = var.backup_retention_period
   multi_az                = var.multi_az
+  vpc_security_group_ids  = var.vpc_security_group_ids
   depends_on              = [aws_db_subnet_group.db-subnet-group]
 }

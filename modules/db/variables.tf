@@ -57,3 +57,7 @@ variable "multi_az" {
   description = "enabling multi_az"
   type        = bool
 }
+variable "vpc_security_group_ids" {
+  description = "sg for db"
+  type        = list(any)
+}

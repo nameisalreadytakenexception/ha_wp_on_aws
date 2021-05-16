@@ -4,6 +4,7 @@ variable "vpc_id" {
 }
 variable "db_port" {
   type        = string
+  default     = 3306
   description = "var for db_port"
 }
 variable "cidr_block_subnet_public" {
