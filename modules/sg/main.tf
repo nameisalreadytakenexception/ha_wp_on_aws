@@ -26,18 +26,18 @@ resource "aws_security_group" "ha-wp-sg-exec-node" {
   description = "security group for exec_nodes"
   vpc_id      = var.vpc_id
   ingress {
-    description = "from exec_nodes to lb"
-    from_port   = var.exec_node_port
-    to_port     = var.exec_node_port
+    description = "from lb to exec_nodes"
+    from_port   = var.http_port
+    to_port     = var.http_port
     protocol    = "tcp"
-    cidr_blocks = var.cidr_block_subnet_private
+    cidr_blocks = var.cidr_block_subnet_public
   }
   ingress {
     description = "EFS mount target"
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    cidr_blocks = var.cidr_block_subnet_private # ["0.0.0.0/0"]
+    cidr_blocks = var.cidr_block_subnet_private
   }
   ingress {
     description = "SSH from VPC"
@@ -47,11 +47,11 @@ resource "aws_security_group" "ha-wp-sg-exec-node" {
     cidr_blocks = var.cidr_block_subnet_private # ["0.0.0.0/0"]
   }
   egress {
-    description = "from lb to exec_nodes"
-    from_port   = var.exec_node_port
-    to_port     = var.exec_node_port
+    description = "from exec_nodes to lb"
+    from_port   = var.http_port
+    to_port     = var.http_port
     protocol    = "tcp"
-    cidr_blocks = var.cidr_block_subnet_public
+    cidr_blocks = var.cidr_block_subnet_public #["0.0.0.0/0"] #
   }
 
   egress {
@@ -70,18 +70,18 @@ resource "aws_security_group" "ha-wp-sg-lb" {
   description = "security group for lb"
   vpc_id      = var.vpc_id
   ingress {
-    description = "from world to lb"
-    from_port   = var.lb_port
-    to_port     = var.lb_port
+    description = "from world & nodes to lb"
+    from_port   = var.http_port
+    to_port     = var.http_port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     description = "from lb to world"
-    from_port   = var.lb_port
-    to_port     = var.lb_port
-    protocol    = "tcp"
-    cidr_blocks = var.cidr_block_subnet_public
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = { Name = "sg-lb" }
 }

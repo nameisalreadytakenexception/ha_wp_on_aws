@@ -8,7 +8,7 @@ output "eip_id" {
 }
 output "subnet_public_id" {
   description = "subnet_public_id values"
-  value       = ["${aws_subnet.ha-wp-subnet-public.*.id}"]
+  value       = aws_subnet.ha-wp-subnet-public.*.id
 }
 output "subnet_private_id" {
   description = "subnet_privatr_id values"

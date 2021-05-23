@@ -19,13 +19,8 @@ variable "cidr_block_db_subnet" {
   description = "cidr block for db subnets"
   type        = list(string)
 }
-variable "exec_node_port" {
-  description = "var for exec_node_port"
-  type        = number
-  default     = 8080
-}
-variable "lb_port" {
-  description = "var for lb_port"
+variable "http_port" {
+  description = "var for 80_port"
   type        = number
   default     = 80
 }

@@ -17,7 +17,7 @@ resource "aws_subnet" "ha-wp-subnet-public" {
   vpc_id                  = var.vpc_id
   count                   = length(var.azs)
   cidr_block              = element(var.cidr_block_subnet_public, count.index)
-  map_public_ip_on_launch = true
+  # map_public_ip_on_launch = true
   availability_zone       = element(var.azs, count.index)
   tags                    = { Name = "ha-wp-subnet-public-${count.index + 1}" }
   depends_on              = [aws_internet_gateway.ha-wp-internet-gateway]

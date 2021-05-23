@@ -10,3 +10,7 @@ output "private_subnets_sg_id" {
   description = "private_subnets_sg_id value"
   value       = aws_security_group.ha-wp-sg-exec-node.id
 }
+output "public_subnets_sg_id" {
+  description = "public_subnets_sg_id value"
+  value       = aws_security_group.ha-wp-sg-lb.id
+}
