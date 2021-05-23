@@ -28,14 +28,14 @@ module "sg" {
   cidr_block_subnet_private = module.vpc.cidr_block_subnet_private
   cidr_block_subnet_public  = module.vpc.cidr_block_subnet_public
 }
-# module "db" {
-#   source                 = "./modules/db"
-#   subnet_ids             = module.vpc.db_subnet_id
-#   db_port                = module.sg.db_port
-#   vpc_security_group_ids = [module.sg.db_sg_id]
-#   # multi_az               = true          # in case of multi-az
-#   # instance_class         = "db.t3.micro" # in case of multi-az
-# }
+module "db" {
+  source                 = "./modules/db"
+  subnet_ids             = module.vpc.db_subnet_id
+  db_port                = module.sg.db_port
+  vpc_security_group_ids = [module.sg.db_sg_id]
+  # multi_az               = true          # in case of multi-az
+  # instance_class         = "db.t3.micro" # in case of multi-az
+}
 module "ssh_key" {
   source   = "./modules/ssh_key"
   key_name = "ha-wp-key"
