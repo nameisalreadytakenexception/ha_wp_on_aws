@@ -32,12 +32,34 @@ resource "aws_security_group" "ha-wp-sg-exec-node" {
     protocol    = "tcp"
     cidr_blocks = var.cidr_block_subnet_private
   }
+  ingress {
+    description = "EFS mount target"
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = var.cidr_block_subnet_private # ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "SSH from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.cidr_block_subnet_private # ["0.0.0.0/0"]
+  }
   egress {
     description = "from lb to exec_nodes"
     from_port   = var.exec_node_port
     to_port     = var.exec_node_port
     protocol    = "tcp"
     cidr_blocks = var.cidr_block_subnet_public
+  }
+
+  egress {
+    description = "EFS mount target"
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = var.cidr_block_subnet_private
   }
   tags = { Name = "sg-exec-node" }
 }

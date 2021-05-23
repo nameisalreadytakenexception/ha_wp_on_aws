@@ -21,3 +21,11 @@ variable "vpc_zone_identifier" {
   description = "list of subnets for exec_nodes"
   type        = list(any)
 }
+variable "key_name" {
+  description = "key_name value"
+  type        = string
+}
+# variable "private_key" {
+#   description = "private_key value"
+#   type        = string
+# }

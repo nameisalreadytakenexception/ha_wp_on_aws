@@ -36,12 +36,21 @@ module "db" {
   # multi_az               = true          # in case of multi-az
   # instance_class         = "db.t3.micro" # in case of multi-az
 }
+module "ssh_key" {
+  source   = "./modules/ssh_key"
+  key_name = "ha-wp-key"
+}
 module "efs" {
-  source        = "./modules/efs"
-  encrypted_efs = true
+  source          = "./modules/efs"
+  encrypted_efs   = true
+  subnet_ids      = module.vpc.subnet_private_id
+  azs             = module.vpc.azs
+  security_groups = [module.sg.private_subnets_sg_id]
+  # private_key   = module.ssh_key.ha-wp-private-key
 }
 module "wp_nodes" {
   source              = "./modules/wp_nodes"
   security_groups     = [module.sg.private_subnets_sg_id]
   vpc_zone_identifier = module.vpc.subnet_private_id
+  key_name            = module.ssh_key.key_name
 }
