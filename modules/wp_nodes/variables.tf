@@ -29,3 +29,7 @@ variable "key_name" {
 #   description = "private_key value"
 #   type        = string
 # }
+variable "mount_target_dns" {
+  description = "mount_target_dns value"
+  type        = string
+}

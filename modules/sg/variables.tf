@@ -20,7 +20,7 @@ variable "cidr_block_db_subnet" {
   type        = list(string)
 }
 variable "http_port" {
-  description = "var for 80_port"
+  description = "var for http_port"
   type        = number
   default     = 80
 }

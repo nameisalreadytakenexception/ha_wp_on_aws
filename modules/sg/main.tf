@@ -51,7 +51,7 @@ resource "aws_security_group" "ha-wp-sg-exec-node" {
     from_port   = var.http_port
     to_port     = var.http_port
     protocol    = "tcp"
-    cidr_blocks = var.cidr_block_subnet_public #["0.0.0.0/0"] #
+    cidr_blocks = ["0.0.0.0/0"] # var.cidr_block_subnet_public
   }
 
   egress {

@@ -48,21 +48,26 @@ data "aws_ami" "ha-wp-ubuntu" {
     values = ["hvm"]
   }
 }
-
+# This resource will destroy (potentially immediately) after null_resource.next
+resource "null_resource" "pause" {}
+resource "time_sleep" "wait_60_seconds" {
+  depends_on = [null_resource.pause]
+  create_duration = "60s"
+}
+# This resource will create (at least) 30 seconds after null_resource.previous
+resource "null_resource" "unpause" {
+  depends_on = [time_sleep.wait_60_seconds]
+}
 resource "aws_launch_configuration" "ha-wp-launch-configuration" {
   name_prefix     = "ha-wp-exec-node-"
   image_id        = data.aws_ami.ha-wp-ubuntu.id
   instance_type   = var.node_instance_type
   key_name        = var.key_name
   security_groups = [var.security_groups[1]]
-  user_data       = <<-EOF
-              #!/bin/bash
-              sudo apt update
-              sudo apt install -y apache2
-              sudo systemctl start apache2
-              sudo systemctl enable apache2
-              echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
-              EOF
+  depends_on      = [var.key_name, null_resource.unpause]
+  user_data       = templatefile("${path.module}/startup.tpl", {
+    mount_target  = var.mount_target_dns
+  })
   lifecycle { create_before_destroy = true }
 }
 
@@ -77,6 +82,6 @@ resource "aws_autoscaling_group" "ha-wp-autoscaling-group" {
   force_delete              = true
   vpc_zone_identifier       = var.vpc_zone_identifier[1]
   load_balancers            = [aws_elb.ha-wp-elb.id]
+  tags                      = [{ Name = "ha-wp-node" }]
   lifecycle { create_before_destroy = true }
-  tags = [{ Name = "ha-wp-node" }]
 }

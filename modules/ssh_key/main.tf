@@ -5,6 +5,7 @@ resource "tls_private_key" "ha-wp-private-key" {
 resource "aws_key_pair" "ha-wp-public-key" {
   key_name   = var.key_name
   public_key = tls_private_key.ha-wp-private-key.public_key_openssh
+  depends_on = [tls_private_key.ha-wp-private-key]
 }
 resource "local_file" "ha-wp-key-pair" {
   content         = tls_private_key.ha-wp-private-key.private_key_pem
