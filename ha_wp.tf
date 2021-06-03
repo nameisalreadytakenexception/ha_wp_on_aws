@@ -63,3 +63,8 @@ module "wp_nodes" {
   my_db_password      = module.db.db_password
   my_db_host          = module.db.db_host
 }
+module "dns"{
+  source       = "./modules/dns"
+  vpc_id       = module.vpc.vpc_id
+  elb_dns_name = module.wp_nodes.elb_dns_name
+}
