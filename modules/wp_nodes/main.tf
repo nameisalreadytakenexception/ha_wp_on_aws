@@ -51,7 +51,7 @@ data "aws_ami" "ha-wp-ubuntu" {
 # This resource will destroy (potentially immediately) after null_resource.next
 resource "null_resource" "pause" {}
 resource "time_sleep" "wait_60_seconds" {
-  depends_on = [null_resource.pause]
+  depends_on      = [null_resource.pause]
   create_duration = "60s"
 }
 # This resource will create (at least) 30 seconds after null_resource.previous
@@ -64,9 +64,13 @@ resource "aws_launch_configuration" "ha-wp-launch-configuration" {
   instance_type   = var.node_instance_type
   key_name        = var.key_name
   security_groups = [var.security_groups[1]]
-  depends_on      = [var.key_name, null_resource.unpause]
+  depends_on      = [var.key_name, var.my_db_host, null_resource.unpause]
   user_data       = templatefile("${path.module}/startup.tpl", {
-    mount_target  = var.mount_target_dns
+    mount_target      = var.mount_target_dns
+    my_wp_db_name     = var.my_db_name
+    my_wp_db_user     = var.my_db_user
+    my_wp_db_password = var.my_db_password
+    my_wp_db_host     = var.my_db_host
   })
   lifecycle { create_before_destroy = true }
 }

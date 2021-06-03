@@ -3,7 +3,7 @@ resource "aws_db_subnet_group" "db-subnet-group" {
   subnet_ids = [var.subnet_ids[0], var.subnet_ids[1]]
   tags       = { Name = "db-subnet-group" }
 }
-resource "aws_db_instance" "default" {
+resource "aws_db_instance" "ha-wp-db-instance" {
   allocated_storage       = var.allocated_storage
   engine                  = var.engine
   engine_version          = var.engine_version

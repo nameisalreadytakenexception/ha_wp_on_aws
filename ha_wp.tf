@@ -5,6 +5,11 @@ terraform {
       version = "~> 3.0"
     }
   }
+  backend "s3" {
+    bucket = "ha-wp-bucket"
+    key    = "./terraform.tfstate"
+    region = "eu-central-1"
+  }
 }
 
 provider "aws" {
@@ -28,14 +33,14 @@ module "sg" {
   cidr_block_subnet_private = module.vpc.cidr_block_subnet_private
   cidr_block_subnet_public  = module.vpc.cidr_block_subnet_public
 }
-# module "db" {
-#   source                 = "./modules/db"
-#   subnet_ids             = module.vpc.db_subnet_id
-#   db_port                = module.sg.db_port
-#   vpc_security_group_ids = [module.sg.db_sg_id]
-#   # multi_az               = true          # in case of multi-az
-#   # instance_class         = "db.t3.micro" # in case of multi-az
-# }
+module "db" {
+  source                 = "./modules/db"
+  subnet_ids             = module.vpc.db_subnet_id
+  db_port                = module.sg.db_port
+  vpc_security_group_ids = [module.sg.db_sg_id]
+  multi_az               = true          # in case of multi-az
+  instance_class         = "db.t3.micro" # in case of multi-az
+}
 module "ssh_key" {
   source   = "./modules/ssh_key"
   key_name = "ha-wp-key"
@@ -46,7 +51,6 @@ module "efs" {
   subnet_ids      = module.vpc.subnet_private_id
   azs             = module.vpc.azs
   security_groups = [module.sg.private_subnets_sg_id]
-  # private_key   = module.ssh_key.ha-wp-private-key
 }
 module "wp_nodes" {
   source              = "./modules/wp_nodes"
@@ -54,4 +58,8 @@ module "wp_nodes" {
   vpc_zone_identifier = [module.vpc.subnet_public_id, module.vpc.subnet_private_id]
   key_name            = module.ssh_key.key_name
   mount_target_dns    = module.efs.mount_target_dns
+  my_db_name          = module.db.db_name
+  my_db_user          = module.db.db_username
+  my_db_password      = module.db.db_password
+  my_db_host          = module.db.db_host
 }

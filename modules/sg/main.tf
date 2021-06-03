@@ -15,7 +15,7 @@ resource "aws_security_group" "ha-wp-sg-db" {
     from_port   = var.db_port
     to_port     = var.db_port
     protocol    = "tcp"
-    cidr_blocks = var.cidr_block_db_subnet
+    cidr_blocks = ["0.0.0.0/0"] # var.cidr_block_db_subnet
   }
   tags = { Name = "sg-db" }
 }
@@ -59,7 +59,7 @@ resource "aws_security_group" "ha-wp-sg-exec-node" {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    cidr_blocks = var.cidr_block_subnet_private
+    cidr_blocks = ["0.0.0.0/0"] # var.cidr_block_subnet_private
   }
   tags = { Name = "sg-exec-node" }
 }

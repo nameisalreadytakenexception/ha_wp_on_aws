@@ -33,3 +33,19 @@ variable "mount_target_dns" {
   description = "mount_target_dns value"
   type        = string
 }
+variable "my_db_name" {
+  description = "my_db_name value"
+  type        = string
+}
+variable "my_db_user" {
+  description = "my_db_user value"
+  type        = string
+}
+variable "my_db_password" {
+  description = "my_db_password value"
+  type        = string
+}
+variable "my_db_host" {
+  description = "my_db_host value"
+  type        = string
+}
