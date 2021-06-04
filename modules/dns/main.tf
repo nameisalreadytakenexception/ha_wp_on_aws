@@ -12,7 +12,7 @@ resource "aws_route53_record" "ha-wp-route53-record" {
   type    = "A"
   alias {
     name                   = var.elb_dns_name
-    zone_id                = data.aws_elb_hosted_zone_id.main.id #aws_route53_zone.ha-wp-route53-zone.zone_id #data.aws_elb_hosted_zone_id.main.id
+    zone_id                = data.aws_elb_hosted_zone_id.main.id
     evaluate_target_health = true
   }
 }
