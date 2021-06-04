@@ -8,11 +8,11 @@ resource "aws_elb" "ha-wp-elb" {
   connection_draining_timeout = 400
   security_groups             = [var.security_groups[0]]
   tags                        = { Name = "ha-wp-elb" }
-  # access_logs {
-  #   bucket        = "foo"
-  #   bucket_prefix = "bar"
-  #   interval      = 60
-  # }
+  access_logs {
+    bucket        = "ha-wp-bucket"
+    bucket_prefix = "elb_log"
+    interval      = 60
+  }
   listener {
     instance_port     = 80
     instance_protocol = "http"
