@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "ha-wp-route53-zone" {
-  name = "ha-wp.com"
+  name          = "ha-wp.com"
   force_destroy = true
   vpc {
     vpc_id = var.vpc_id

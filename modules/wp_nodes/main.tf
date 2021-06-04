@@ -65,7 +65,7 @@ resource "aws_launch_configuration" "ha-wp-launch-configuration" {
   key_name        = var.key_name
   security_groups = [var.security_groups[1]]
   depends_on      = [var.key_name, var.my_db_host, null_resource.unpause]
-  user_data       = templatefile("${path.module}/startup.tpl", {
+  user_data = templatefile("${path.module}/startup.tpl", {
     mount_target      = var.mount_target_dns
     my_wp_db_name     = var.my_db_name
     my_wp_db_user     = var.my_db_user
